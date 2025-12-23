@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bro veliya polam bro</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .snowflake {
+        position: absolute;
+        top: -10px;
+        color: white;
+        font-size: 1.5em;
+        animation: fall linear infinite;
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh);
+        }
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 30px;
+        padding: 40px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 10;
+      }
+
+      .bear {
+        font-size: 80px;
+        animation: bounce 2s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      h1 {
+        color: #764ba2;
+        font-size: 2.5em;
+        margin: 20px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .question {
+        font-size: 1.5em;
+        color: #333;
+        margin: 30px 0;
+        line-height: 1.6;
+      }
+
+      .highlight {
+        color: #e74c3c;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        padding: 15px 40px;
+        font-size: 1.3em;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: bold;
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+      }
+
+      #yesBtn {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+      }
+
+      #yesBtn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+      }
+
+      #noBtn {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        color: #333;
+        box-shadow: 0 5px 15px rgba(168, 237, 234, 0.4);
+      }
+
+      .celebration {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          #f093fb 0%,
+          #f5576c 50%,
+          #ffd700 100%
+        );
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.5s;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .celebration-content {
+        background: white;
+        padding: 50px;
+        border-radius: 30px;
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .celebration-content h2 {
+        color: #f5576c;
+        font-size: 3em;
+        margin-bottom: 20px;
+      }
+
+      .celebration-content p {
+        font-size: 1.5em;
+        color: #333;
+        line-height: 1.8;
+      }
+
+      .hearts {
+        font-size: 3em;
+        animation: pulse 1s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+
+      .mobile-message {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        border-radius: 20px;
+        font-size: 1.2em;
+        color: #333;
+        animation: slideIn 0.5s;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: #f5576c;
+        position: absolute;
+        animation: confetti-fall 3s linear;
+      }
+
+      @keyframes confetti-fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2em;
+        }
+        .question {
+          font-size: 1.2em;
+        }
+        .bear {
+          font-size: 60px;
+        }
+        button {
+          padding: 12px 30px;
+          font-size: 1.1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="mainContainer">
+      <div class="bear">🧸</div>
+      <h1>BROOOOOOO</h1>
+      <div class="question">
+        25th meet panlama brooo <br />
+        Jaali ah irukum<br />
+      </div>
+      <div class="buttons">
+        <button id="yesBtn" onclick="handleYes()">Yeos</button>
+        <button id="noBtn">No :(</button>
+      </div>
+      <div class="mobile-message" id="mobileMessage"></div>
+    </div>
+
+    <div class="celebration" id="celebration">
+      <div class="celebration-content">
+        <div class="hearts">💖💕💝💗💓</div>
+        <h2>maasu bro ne</h2>
+        <p>
+          25th paapom <br />
+          varatta maame durrrrrrrrrrrrrrrrr<br />
+        </p>
+        <div class="hearts" style="margin-top: 30px">🎅🎄⛄🎁🌟</div>
+      </div>
+    </div>
+
+    <script>
+      const cuteMessages = [
+        "bro jaali ah irukum bro",
+        "semma jaali ah irukum",
+        "neeye yoschu paaren",
+        "neeye place decide panuu bro",
+        "semmozli poonga kuda okay thaan bro",
+        "ena bro ne ivlo solliyum ipdi no no solriye bro",
+        "romba naal achu brooo",
+        "i is seriously missing u broooo",
+        "pweaseeeeeeeeeeeeeeee bro",
+        "pweaseeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "thillu mullu pannala",
+        "naa gethu githu kaatala",
+        "sceenu geenu podala",
+        "bulbu gilbu vaangala",
+        "kaanu kaanu paakala",
+        "na unna vittu pogala",
+        "thottu gittu pesala",
+        "ne thota yen inu ketkala",
+        "petty kadayila nikkala",
+        "vetti kadhayum pesala",
+        "dummu gimmu adikala",
+        "pinna yen di enna pudikala :(",
+      ];
+
+      let messageIndex = 0;
+      let noBtn = document.getElementById("noBtn");
+      let mobileMessage = document.getElementById("mobileMessage");
+      let isMobile =
+        /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+        window.innerWidth <= 768;
+
+      function createSnowflakes() {
+        setInterval(() => {
+          const snowflake = document.createElement("div");
+          snowflake.classList.add("snowflake");
+          snowflake.innerHTML = "❄";
+          snowflake.style.left = Math.random() * 100 + "%";
+          snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";
+          snowflake.style.fontSize = Math.random() * 1 + 0.5 + "em";
+          document.body.appendChild(snowflake);
+
+          setTimeout(() => {
+            snowflake.remove();
+          }, 5000);
+        }, 300);
+      }
+
+      function handleYes() {
+        document.getElementById("celebration").style.display = "flex";
+        createConfetti();
+
+        // Create lots of hearts
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => {
+            createFloatingHeart();
+          }, i * 100);
+        }
+      }
+
+      function createConfetti() {
+        const colors = ["#f5576c", "#f093fb", "#ffd700", "#4facfe", "#43e97b"];
+        for (let i = 0; i < 100; i++) {
+          setTimeout(() => {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * 100 + "%";
+            confetti.style.top = "-10px";
+            confetti.style.background =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+              confetti.remove();
+            }, 3000);
+          }, i * 30);
+        }
+      }
+
+      function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.innerHTML = "💖";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.bottom = "-50px";
+        heart.style.fontSize = Math.random() * 2 + 1 + "em";
+        heart.style.animation = "float-up 4s ease-in";
+        heart.style.zIndex = "999";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 4000);
+      }
+
+      if (isMobile) {
+        noBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          if (messageIndex < cuteMessages.length) {
+            mobileMessage.textContent = cuteMessages[messageIndex];
+            mobileMessage.style.display = "block";
+            messageIndex++;
+
+            // Make the yes button bigger and more attractive
+            document.getElementById("yesBtn").style.transform = `scale(${
+              1 + messageIndex * 0.1
+            })`;
+
+            // Shake the container
+            document.getElementById("mainContainer").style.animation =
+              "shake 0.5s";
+            setTimeout(() => {
+              document.getElementById("mainContainer").style.animation = "";
+            }, 500);
+          } else {
+            // After all messages, show warning and refresh
+            alert("ipdi no lam solla kudadhu bro. inoru vaati try pannu :)");
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        // Desktop: moving no button
+        noBtn.addEventListener("mouseenter", function () {
+          const container = document.getElementById("mainContainer");
+          const containerRect = container.getBoundingClientRect();
+          const btnRect = noBtn.getBoundingClientRect();
+
+          // Calculate random position within container
+          const maxX = containerRect.width - btnRect.width - 40;
+          const maxY = containerRect.height - btnRect.height - 40;
+
+          const randomX = Math.random() * maxX;
+          const randomY = Math.random() * maxY;
+
+          noBtn.style.position = "absolute";
+          noBtn.style.left = randomX + "px";
+          noBtn.style.top = randomY + "px";
+          noBtn.style.transition = "all 0.3s ease";
+        });
+      }
+
+      // Add shake animation
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+            @keyframes float-up {
+                to {
+                    transform: translateY(-100vh);
+                    opacity: 0;
+                }
+            }
+        `;
+      document.head.appendChild(style);
+
+      createSnowflakes();
+    </script>
+  </body>
+</html>
